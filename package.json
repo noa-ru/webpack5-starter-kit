@@ -1,0 +1,48 @@
+{
+    "name": "webpack5-starter-kit",
+    "version": "1.0.0",
+    "description": "",
+    "author": "Oleg Nazarov",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "webpack watch",
+        "build": "webpack --env prod"
+    },
+    "keywords": [
+        "webpack",
+        "startkit",
+        "frontend",
+        "es6",
+        "javascript"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.17.4",
+        "@babel/preset-env": "^7.16.11",
+        "autoprefixer": "^10.4.2",
+        "babel-loader": "^8.2.3",
+        "css-loader": "^6.6.0",
+        "glob": "^7.2.0",
+        "image-minimizer-webpack-plugin": "^3.2.3",
+        "imagemin": "^8.0.1",
+        "imagemin-gifsicle": "^7.0.0",
+        "imagemin-jpegtran": "^7.0.0",
+        "imagemin-optipng": "^8.0.0",
+        "imagemin-svgo": "^10.0.1",
+        "mini-css-extract-plugin": "^2.5.3",
+        "postcss": "^8.4.6",
+        "postcss-loader": "^6.2.1",
+        "sass": "^1.49.7",
+        "sass-loader": "^12.6.0",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.69.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-remove-empty-scripts": "^0.7.3",
+        "copy-webpack-plugin": "^10.2.4"
+    },
+    "dependencies": {},
+    "engines": {
+        "npm": ">=6.14.16",
+        "node": ">=12.22.11"
+    }
+}

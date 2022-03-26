@@ -1,0 +1,13 @@
+@import "variables";
+@import "open-sans";
+
+// comment test1
+
+body {
+  background: $bg1;
+}
+
+/* autoprefixer test | comment test2 */
+::placeholder {
+  color: gray;
+}
