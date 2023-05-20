@@ -25,6 +25,7 @@
 - sass, postcss, autoprefixer
 - es6 transpiling
 - clean rebuild
+- vue
 
 <br>
 

@@ -4,12 +4,10 @@ const path = require('path');
 
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-const webpack = require("webpack");
-
 const hash = '.[contenthash:6]';
 const CopyPlugin = require("copy-webpack-plugin");
+const { VueLoaderPlugin } = require('vue-loader');
 
 const ROOT_PATH = path.resolve(__dirname);
 const OUT_PATH_PART = 'dist';
@@ -56,6 +54,18 @@ module.exports = (env) => {
         module: {
             rules: [
                 {
+                    test: /\.vue$/,
+                    use: 'vue-loader',
+                },
+                {
+                    test: /\.vue\.(s?[ac]ss)$/, //vue scss
+                    use: [
+                        'vue-style-loader',
+                        'css-loader',
+                        'sass-loader'
+                    ]
+                },
+                {
                     test: /\.js$/,
                     exclude: /(node_modules|bower_components)/,
                     use: {
@@ -66,12 +76,19 @@ module.exports = (env) => {
                     }
                 },
                 {
-                    test: /\.scss$/,
+                    test: /(?<!\.vue)\.(s?[ac]ss)$/, //standalone scss
                     use: [
                         MiniCssExtractPlugin.loader,
                         'css-loader',
                         'postcss-loader',
-                        'sass-loader',
+                        'resolve-url-loader',
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true,
+                            }
+                        },
+
                     ],
                 },
                 {
@@ -97,6 +114,7 @@ module.exports = (env) => {
             ],
         },
         plugins: [
+            new VueLoaderPlugin(),
             new Hashmap({hashMapPath: OUT_PATH_PART, assetsRegex: /\.(png|svg|jpe?g|gif)$/i}),
             /** fix empty output entry.js by MiniCssExtractPlugin */
             new RemoveEmptyScriptsPlugin(),
