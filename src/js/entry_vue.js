@@ -14,7 +14,12 @@ const app = createApp({
 
 app.component('Example', Example)
 
-document.addEventListener('DOMContentLoaded', function () {
+function onReady() {
     app.mount('#app')
-});
+}
 
+if (document.readyState !== "loading") {
+    onReady();
+} else {
+    document.addEventListener("DOMContentLoaded", onReady);
+}

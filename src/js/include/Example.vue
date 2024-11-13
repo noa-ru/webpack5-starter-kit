@@ -4,15 +4,13 @@
 
 <script>
 export default {
-  mounted: function() {
+  mounted: function () {
 
   },
   data() {
     return {}
   },
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 

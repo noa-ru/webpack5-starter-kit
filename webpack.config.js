@@ -6,8 +6,8 @@ const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const hash = '.[contenthash:6]';
-const CopyPlugin = require("copy-webpack-plugin");
-const { VueLoaderPlugin } = require('vue-loader');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const {VueLoaderPlugin} = require('vue-loader');
 
 const ROOT_PATH = path.resolve(__dirname);
 const OUT_PATH_PART = 'dist';
@@ -17,7 +17,7 @@ console.log(JSON.stringify({
     ROOT_PATH: ROOT_PATH,
     OUT_PATH_PART: OUT_PATH_PART,
     OUT_PATH: OUT_PATH
-},null,4))
+}, null, 4))
 
 /**
  * webpack --env flag1 flag2
@@ -27,7 +27,7 @@ console.log(JSON.stringify({
  * */
 module.exports = (env) => {
     let mode = 'development';
-    if(env.prod) {
+    if (env.prod) {
         mode = 'production';
     }
     console.log(`\nENV: ${mode}\n`);
@@ -126,10 +126,18 @@ module.exports = (env) => {
             //     append: '\n//# sourceMappingURL=[file].map',
             //     filename: '[file].map',
             // }),
-            new CopyPlugin({
+            new CopyWebpackPlugin({
                 patterns: [
-                  //{ from: `${ROOT_PATH}/src/static`, to: `static` } */
-                    { from: `${ROOT_PATH}/src/static`, to: `static/[name]${hash}[ext]` },
+                    {
+                        from: `${ROOT_PATH}/src/static/`,
+                        to ({context, absoluteFilename}) {
+                            let output = `${OUT_PATH}/static/`;
+                            let filepath = absoluteFilename.replace(context, '');
+                            let ext = path.extname(absoluteFilename);
+                            filepath = filepath.replace(ext, `${hash}${ext}`);
+                            return `${output}${filepath}`;
+                        }
+                    },
                 ],
             }),
         ],
@@ -143,9 +151,9 @@ module.exports = (env) => {
                             // Lossless optimization with custom option
                             // Feel free to experiment with options for better result for you
                             plugins: [
-                                ["gifsicle", { interlaced: true }],
-                                ["jpegtran", { progressive: true }],
-                                ["optipng", { optimizationLevel: 5 }],
+                                ["gifsicle", {interlaced: true}],
+                                ["jpegtran", {progressive: true}],
+                                ["optipng", {optimizationLevel: 5}],
                                 // Svgo configuration here https://github.com/svg/svgo#configuration
                                 [
                                     "svgo",

@@ -32,7 +32,9 @@
 ### Installation
 
 ```sh
+#clone git project, run 
 npm install
+#then start code your new project
 ```
 
 ### Development

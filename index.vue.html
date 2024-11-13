@@ -1,14 +1,37 @@
-<!DOCTYPE html>
+<!-- this is test file -->
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Webpack starter kit - Vue app</title>
+    <script>
+        function getJsonData(link) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', link);
+                xhr.send();
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(xhr)
+                    }
+                };
+                xhr.onerror = reject;
+            })
+        }
 
-    <!-- build -->
-    <script src="dist/js/entry_vue.1512a8.js"></script>
+        function addScriptTag(link) {
+            let script = document.createElement('script');
+            script.setAttribute('src', link);
+            document.head.appendChild(script);
+        }
 
-    <!-- watch -->
-    <script src="dist/js/entry_vue.a7fd5d.js"></script>
+        getJsonData('dist/jsmap.json').then((response) => {
+            let jsMap = JSON.parse(response);
+            addScriptTag(`dist/${jsMap['js/entry_vue.js']}`)
+        })
+    </script>
 </head>
 <body>
 
