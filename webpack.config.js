@@ -115,7 +115,7 @@ module.exports = (env) => {
         },
         plugins: [
             new VueLoaderPlugin(),
-            new Hashmap({hashMapPath: OUT_PATH_PART, assetsRegex: /\.(png|svg|jpe?g|gif)$/i}),
+            new Hashmap({hashMapPath: OUT_PATH_PART, assetsRegex: /\.(png|svg|jpe?g|gif|woff2?|eot|ttf)$/i}),
             /** fix empty output entry.js by MiniCssExtractPlugin */
             new RemoveEmptyScriptsPlugin(),
             new MiniCssExtractPlugin({
